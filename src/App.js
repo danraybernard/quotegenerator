@@ -9,8 +9,7 @@ class App extends Component {
       <div className="App">
         <script async src="https://platform.twitter.com/widgets.js" />
         <header className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
-          <h1 className="App-title">Welcome to React</h1>
+          <h1>Quotes on life, design and everything else</h1>
         </header>
         <Quote/>
 

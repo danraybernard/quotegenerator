@@ -9,6 +9,15 @@ class QuotePage extends Component {
       quote: {}
     }
     this.handleGetNewQuote = () => {
+      const colors = [
+        '#593F62',
+        '#7B6D8D',
+        '#8499B1',
+        '#A5C4D4'
+      ]
+      let randoColor = colors[Math.floor(Math.random() * colors.length)]
+      console.log(randoColor)
+      document.body.style.background = randoColor
       this.getNewQuote()
     }
     this.getNewQuote = () => {
@@ -46,12 +55,24 @@ class QuotePage extends Component {
     }
     return (
       <div>
-        <div> {quoteText} </div>
-        <div> {quoteAuthor} </div>
-        <Button onClick={() => this.getNewQuote() }>New Quote</Button>
-        <a href={'https://twitter.com/intent/tweet?text=' + '"' + quoteText + '" '} data-show-count="false">
-          <Icon name='twitter square' size='big' />
-        </a>
+        <div className="cardContainer">
+          <Card className='quoteCard'>
+            <Card.Content>
+              <Card.Header>
+                {quoteAuthor}
+              </Card.Header>
+              <Card.Description>
+                {quoteText}
+              </Card.Description>
+            </Card.Content>
+            <Card.Content extra>
+              <Button onClick={() => this.handleGetNewQuote() }>New Quote</Button>
+              <a href={'https://twitter.com/intent/tweet?text=' + '"' + quoteText + '" '} data-show-count="false">
+                <Icon name='twitter square' size='big' />
+              </a>
+            </Card.Content>
+          </Card>
+        </div>
       </div>
     )
   }
