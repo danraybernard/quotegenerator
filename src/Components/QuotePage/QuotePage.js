@@ -8,6 +8,7 @@ class QuotePage extends Component {
     this.state = {
       quote: {}
     }
+    // This will fetch a new quote from the API and also set the background to a random color from an assortment.
     this.handleGetNewQuote = () => {
       const colors = [
         '#593F62',
@@ -67,6 +68,7 @@ class QuotePage extends Component {
             </Card.Content>
             <Card.Content extra>
               <Button onClick={() => this.handleGetNewQuote() }>New Quote</Button>
+              // Appends the quoteText to twitter's URL for posting.
               <a href={'https://twitter.com/intent/tweet?text=' + '"' + quoteText + '" '} data-show-count="false">
                 <Icon name='twitter square' size='big' />
               </a>
