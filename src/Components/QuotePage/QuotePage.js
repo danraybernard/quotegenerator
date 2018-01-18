@@ -6,7 +6,8 @@ class QuotePage extends Component {
   constructor (props) {
     super(props)
     this.state = {
-      quote: {}
+      quote: {},
+      user: {}
     }
     // This will fetch a new quote from the API and also set the background to a random color from an assortment.
     this.handleGetNewQuote = () => {
@@ -26,6 +27,7 @@ class QuotePage extends Component {
         method: 'get',
         cache: false,
         Pragma: 'no-cache',
+        // Appending the date and time to the request allows for get requests to be unique and not lets getNewQuote make new requests instead of reusing cached requests
         url: 'http://quotesondesign.com/wp-json/posts?filter[orderby]=rand&filter[posts_per_page]=1' + '&' + (new Date()).getTime()
       })
         .then(newQuote => {
@@ -40,6 +42,15 @@ class QuotePage extends Component {
       var tmp = document.createElement('DIV')
       tmp.innerHTML = html
       return tmp.textContent || tmp.innerText || ''
+    }
+    this.loginWithTwitter = () => {
+      axios.get('http://localhost:8080/login/', {headers: {'Access-Control-Allow-Origin': '*'}})
+        .then(res =>
+          res.data
+        )
+        .then(user =>
+          this.setState({user: user})
+        )
     }
   }
   componentDidMount () {
@@ -68,12 +79,13 @@ class QuotePage extends Component {
             </Card.Content>
             <Card.Content extra>
               <Button onClick={() => this.handleGetNewQuote() }>New Quote</Button>
-              // Appends the quoteText to twitter's URL for posting.
+              {/* Appends the quoteText to twitter's URL for posting. */}
               <a href={'https://twitter.com/intent/tweet?text=' + '"' + quoteText + '" '} data-show-count="false">
                 <Icon name='twitter square' size='big' />
               </a>
             </Card.Content>
           </Card>
+          <Button onClick={this.loginWithTwitter()}>log in with twitter</Button>
         </div>
       </div>
     )

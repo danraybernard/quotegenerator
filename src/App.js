@@ -1,6 +1,4 @@
 import React, { Component } from 'react'
-import NewQuoteButton from './Components/NewQuoteButton/NewQuoteButton.js'
-import logo from './logo.svg'
 import './App.css'
 import Quote from './Components/QuotePage/QuotePage.js'
 class App extends Component {
