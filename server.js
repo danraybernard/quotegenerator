@@ -31,7 +31,7 @@ app.use(passport.session())
 
 app.get('/',
   function (req, res) {
-    res.send(req)
+    res.send(req.user.username)
   }
 )
 
@@ -46,7 +46,7 @@ app.get('/login/return',
   function (req, res) {
     console.log(req.params)
     // res.json(req.user)
-    res.redirect('http://localhost:3000')
+    res.redirect('http://localhost:8080')
   })
 
 app.listen(8080)
