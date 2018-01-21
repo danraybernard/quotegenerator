@@ -7,7 +7,7 @@ class QuotePage extends Component {
     super(props)
     this.state = {
       quote: {},
-      user: {}
+      user: null
     }
     // This will fetch a new quote from the API and also set the background to a random color from an assortment.
     this.handleGetNewQuote = () => {
@@ -27,7 +27,7 @@ class QuotePage extends Component {
         method: 'get',
         cache: false,
         Pragma: 'no-cache',
-        // Appending the date and time to the request allows for get requests to be unique and not lets getNewQuote make new requests instead of reusing cached requests
+        // Appending the date and time to the request allows for get requests to be unique and lets getNewQuote make new requests instead of reusing cached requests
         url: 'http://quotesondesign.com/wp-json/posts?filter[orderby]=rand&filter[posts_per_page]=1' + '&' + (new Date()).getTime()
       })
         .then(newQuote => {
@@ -44,7 +44,8 @@ class QuotePage extends Component {
       return tmp.textContent || tmp.innerText || ''
     }
     this.loginWithTwitter = () => {
-      axios.get('http://localhost:8080/login/', {headers: {'Access-Control-Allow-Origin': '*'}})
+      console.log('hello')
+      axios.get('http://localhost:8080/', {headers: {'Access-Control-Allow-Origin': '*'}})
         .then(res =>
           res.data
         )
@@ -57,6 +58,7 @@ class QuotePage extends Component {
   }
 
   render () {
+    console.log(this.state)
     let quoteText = null
     let quoteAuthor = null
     if (this.state.quote.data) {
@@ -67,6 +69,7 @@ class QuotePage extends Component {
     }
     return (
       <div>
+        {(this.state.user) ? <p>{this.state.user}</p> : <p>not logged in</p>}
         <div className="cardContainer">
           <Card className='quoteCard'>
             <Card.Content>
@@ -85,7 +88,8 @@ class QuotePage extends Component {
               </a>
             </Card.Content>
           </Card>
-          <Button onClick={this.loginWithTwitter()}>log in with twitter</Button>
+          <Button href={'http://localhost:8080/login/'}>log in with twitter</Button>
+          <Button onClick={this.loginWithTwitter}> You logged in, now what </Button>
         </div>
       </div>
     )

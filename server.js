@@ -46,7 +46,7 @@ app.get('/login/return',
   function (req, res) {
     console.log(req.params)
     // res.json(req.user)
-    res.redirect('http://localhost:8080')
+    res.redirect('http://localhost:3000')
   })
 
 app.listen(8080)
