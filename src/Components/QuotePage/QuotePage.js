@@ -45,16 +45,22 @@ class QuotePage extends Component {
     }
     this.loginWithTwitter = () => {
       console.log('hello')
-      axios.get('http://localhost:8080/', {headers: {'Access-Control-Allow-Origin': '*'}})
+      axios.get('http://localhost:8080/login')
         .then(res =>
           res.data
         )
-        .then(user =>
-          this.setState({user: user})
-        )
+        .catch(console.error())
     }
   }
   componentDidMount () {
+    axios.get('http://localhost:8080/', {headers: {'Access-Control-Allow-Origin': '*'}})
+      .then(res =>
+        res.data
+      )
+      .then(user =>
+        this.setState({user: user})
+      )
+      .catch(console.error())
   }
 
   render () {
@@ -69,7 +75,7 @@ class QuotePage extends Component {
     }
     return (
       <div>
-        {(this.state.user) ? <p>{this.state.user}</p> : <p>not logged in</p>}
+        {(this.state.user) ? <p>{this.state.user.username}</p> : <p>not logged in</p>}
         <div className="cardContainer">
           <Card className='quoteCard'>
             <Card.Content>
@@ -89,7 +95,6 @@ class QuotePage extends Component {
             </Card.Content>
           </Card>
           <Button href={'http://localhost:8080/login/'}>log in with twitter</Button>
-          <Button onClick={this.loginWithTwitter}> You logged in, now what </Button>
         </div>
       </div>
     )

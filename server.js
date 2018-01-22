@@ -31,7 +31,7 @@ app.use(passport.session())
 
 app.get('/',
   function (req, res) {
-    res.send(req.user.username)
+    res.send(req.user)
   }
 )
 
