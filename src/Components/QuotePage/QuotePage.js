@@ -1,6 +1,8 @@
 import React, { Component } from 'react'
 import './QuotePage.css'
 import axios from 'axios'
+import { connect } from 'react-redux'
+import store, { loginWithTwitter } from '../../store'
 import { Button, Icon, Card } from 'semantic-ui-react'
 class QuotePage extends Component {
   constructor (props) {
@@ -61,21 +63,25 @@ class QuotePage extends Component {
         this.setState({user: user})
       )
       .catch(console.error())
+
+    this.props.connectLoginWithTwitter()
   }
 
   render () {
-    console.log(this.state)
+    console.log(this.props.user)
     let quoteText = null
     let quoteAuthor = null
+
     if (this.state.quote.data) {
       quoteText = this.stripHTMLTag(this.state.quote.data[0].content)
       quoteAuthor = this.stripHTMLTag(this.state.quote.data[0].title)
     } else {
       this.handleGetNewQuote()
     }
+
     return (
       <div>
-        {(this.state.user) ? <p>{this.state.user.username}</p> : <p>not logged in</p>}
+        {(this.props.user) ? <p>{this.props.user.username}</p> : <p>not logged in</p>}
         <div className="cardContainer">
           <Card className='quoteCard'>
             <Card.Content>
@@ -94,11 +100,34 @@ class QuotePage extends Component {
               </a>
             </Card.Content>
           </Card>
-          <Button href={'http://localhost:8080/login/'}>log in with twitter</Button>
         </div>
+
+        <Button>
+          <a href={'http://localhost:8080/login'}>
+            <Icon name='twitter' size='big' />
+            Login with Twitter
+          </a>
+        </Button>
+
       </div>
     )
   }
 }
 
-export default QuotePage
+const mapStateToProps = function (state) {
+  return ({
+    user: state.login
+  })
+}
+
+const mapDispatchToProps = function (dispatch) {
+  return {
+    connectLoginWithTwitter (login) {
+      dispatch(loginWithTwitter(login))
+    }
+  }
+}
+
+export default connect(
+  mapStateToProps, mapDispatchToProps
+)(QuotePage)
