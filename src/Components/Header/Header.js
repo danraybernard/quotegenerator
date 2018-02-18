@@ -15,7 +15,7 @@ class Header extends Component {
   }
 
   getUser () {
-    axios.get('http://localhost:8080/', {mode: 'cors', 'Cache-Control': 'no-cache'})
+    axios.get('https://vast-coast-12235.herokuapp.com/', {mode: 'cors', 'Cache-Control': 'no-cache'})
       .then(res =>
         console.log(res)
       )
@@ -35,7 +35,7 @@ class Header extends Component {
     return (
       <div>
         {(this.state.user.username) ? <p>{this.state.user.username}</p>
-          : <a href={'http://localhost:8080/login'}>
+          : <a href={'https://vast-coast-12235.herokuapp.com/login'}>
             <Button>
               <Icon name='twitter' size='big' />
           Login with Twitter
