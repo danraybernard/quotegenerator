@@ -13,7 +13,7 @@ export function twitterLogin (login) {
 
 export function loginWithTwitter () {
   return function thunk (dispatch) {
-    axios.get('http://localhost:8080/', {headers: {'Access-Control-Allow-Origin': '*'}})
+    axios.get('https://vast-coast-12235.herokuapp.com/', {headers: {'Access-Control-Allow-Origin': '*'}})
       .then(res =>
         res.data
       )

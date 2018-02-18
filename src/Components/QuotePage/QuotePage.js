@@ -20,7 +20,6 @@ class QuotePage extends Component {
         '#A5C4D4'
       ]
       let randoColor = colors[Math.floor(Math.random() * colors.length)]
-      console.log(randoColor)
       document.body.style.background = randoColor
       this.getNewQuote()
     }
@@ -45,30 +44,9 @@ class QuotePage extends Component {
       tmp.innerHTML = html
       return tmp.textContent || tmp.innerText || ''
     }
-    this.loginWithTwitter = () => {
-      console.log('hello')
-      axios.get('http://localhost:8080/login')
-        .then(res =>
-          res.data
-        )
-        .catch(console.error())
-    }
-  }
-  componentDidMount () {
-    axios.get('http://localhost:8080/', {headers: {'Access-Control-Allow-Origin': '*'}})
-      .then(res =>
-        res.data
-      )
-      .then(user =>
-        this.setState({user: user})
-      )
-      .catch(console.error())
-
-    this.props.connectLoginWithTwitter()
   }
 
   render () {
-    console.log(this.props.user)
     let quoteText = null
     let quoteAuthor = null
 
@@ -81,7 +59,7 @@ class QuotePage extends Component {
 
     return (
       <div>
-        {(this.props.user) ? <p>{this.props.user.username}</p> : <p>not logged in</p>}
+
         <div className="cardContainer">
           <Card className='quoteCard'>
             <Card.Content>
@@ -102,13 +80,6 @@ class QuotePage extends Component {
           </Card>
         </div>
 
-        <Button>
-          <a href={'http://localhost:8080/login'}>
-            <Icon name='twitter' size='big' />
-            Login with Twitter
-          </a>
-        </Button>
-
       </div>
     )
   }
@@ -116,15 +87,13 @@ class QuotePage extends Component {
 
 const mapStateToProps = function (state) {
   return ({
-    user: state.login
+
   })
 }
 
 const mapDispatchToProps = function (dispatch) {
   return {
-    connectLoginWithTwitter (login) {
-      dispatch(loginWithTwitter(login))
-    }
+
   }
 }
 
