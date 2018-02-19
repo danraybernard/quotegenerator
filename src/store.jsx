@@ -6,14 +6,19 @@ import rootReducer from './reducers'
 
 export const TWITTER_LOGIN = 'TWITTER_LOGIN'
 
-export function twitterLogin (login) {
-  const action = { type: TWITTER_LOGIN, login }
+export function twitterLogin (user) {
+  const action = { type: TWITTER_LOGIN, user }
   return action
 }
 
 export function loginWithTwitter () {
   return function thunk (dispatch) {
-    axios.get('https://vast-coast-12235.herokuapp.com/', {headers: {'Access-Control-Allow-Origin': '*'}})
+    axios({
+      method: 'get',
+      url: 'http://localhost:8080/',
+      responseType: 'json',
+      headers: {'Access-Control-Allow-Origin': '*'}
+    })
       .then(res =>
         res.data
       )

@@ -8,7 +8,7 @@ const rootReducer = function (state = initialState, action) {
   const nextState = Object.assign({}, state)
   switch (action.type) {
     case TWITTER_LOGIN:
-      nextState.login = action.login
+      nextState.user = action.user
       return nextState
 
     default: return state

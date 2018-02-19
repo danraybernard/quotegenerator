@@ -29,7 +29,7 @@ class QuotePage extends Component {
         cache: false,
         Pragma: 'no-cache',
         // Appending the date and time to the request allows for get requests to be unique and lets getNewQuote make new requests instead of reusing cached requests
-        url: 'https://cors-anywhere.herokuapp.com' + 'http://quotesondesign.com/wp-json/posts?filter[orderby]=rand&filter[posts_per_page]=1' + '&' + (new Date()).getTime()
+        url: 'http://quotesondesign.com/wp-json/posts?filter[orderby]=rand&filter[posts_per_page]=1' + '&' + (new Date()).getTime()
       })
         .then(newQuote => {
           this.setState({
