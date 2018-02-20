@@ -4,75 +4,66 @@ import axios from 'axios'
 import { connect } from 'react-redux'
 import { loginWithTwitter } from '../../store'
 import { Button, Icon } from 'semantic-ui-react'
+import fetch from 'cross-fetch'
 
+var XMLHttpRequest = require('xmlhttprequest').XMLHttpRequest
 class Header extends Component {
   constructor (props) {
     super(props)
     this.state = {
-      user: null
+      user: {}
     }
     this.getUser = this.getUser.bind(this)
   }
 
   async getUser () {
-    await axios({
-      method: 'get',
-      url: 'http://localhost:8080/',
-      responseType: 'json',
-      headers: {'Access-Control-Allow-Origin': '*'}
-    })
-      .then(res =>
-        res.data
-      )
-      .then(user =>
-        this.setState({
-          user: user
-        })
-      )
-      .catch(console.error())
+    console.log('run getuser')
+    // // for some reason headers are not set
+    // axios({
+    //   method: 'get',
+    //   url: 'http://localhost:8080/',
+    //   responseType: 'json',
+    //   headers: {'Access-Control-Allow-Origin': '*'}
+    // })
+    //   .then(res =>
+    //     // res.data
+    //     console.log('got res', res)
+    //   )
+    //   // .then(user =>
+    //   //   user
+    //   //     ? this.setState({
+    //   //       user: user
+    //   //     })
+    //   //     : console.log('no')
+    //   // )
+    //   .catch(console.error())
+
+    await fetch('/getUser', {headers: {'Accept': 'application/json'}})
+      .then(res => {
+        return res.json()
+      })
+      .then(user => {
+        this.setState({user: user})
+      })
+      .catch(err => {
+        console.error(err)
+      })
   }
 
   componentDidMount () {
-    // this.props.connectLoginWithTwitter()
-  }
-  componentDidUpdate () {
-    // if (this.state.user !== null) {
-    //   this.setState({user: this.props.user})
-    // }
-
-    if (this.state.user == null) {
-      async function main () {
-        try {
-          var quote = await this.getUser()
-          console.log(quote)
-        } catch (error) {
-          console.error(error)
-        }
-      }
-    }
-    // What is the best way to consistently check for a successful request on the server?
-
-    // if (this.state.user == null) {
-    //   async () => {
-    //     try {
-    //       this.getUser()
-    //     } catch (e) { console.log(e) }
-    //   }
-    // }
+    this.getUser()
   }
 
-  componentWillReceiveProps () {
-    // if (this.props !== undefined) {
-    //   this.setState({user: this.props.user})
-    // }
-  }
+  // FOR SOME REASON THE API CALL IS RUN TWICE
 
   render () {
-    if (this.state.user == null) { this.getUser() }
     // console.log(this.state)
+    // if (this.state.user === {}) {
+    // }
+    console.log(this.state)
     return (
       <div>
-        {(this.state.user) ? <div> <p>{this.state.user.username}</p></div>
+        { this.state.user.username ? <div> <p>{this.state.user.username}</p></div>
           : <a href={'http://localhost:8080/login'}>
             <Button>
               <Icon name='twitter' size='big' />
