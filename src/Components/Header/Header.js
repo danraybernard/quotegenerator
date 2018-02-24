@@ -13,57 +13,19 @@ class Header extends Component {
     this.state = {
       user: {}
     }
-    this.getUser = this.getUser.bind(this)
-  }
-
-  async getUser () {
-    console.log('run getuser')
-    // // for some reason headers are not set
-    // axios({
-    //   method: 'get',
-    //   url: 'http://localhost:8080/',
-    //   responseType: 'json',
-    //   headers: {'Access-Control-Allow-Origin': '*'}
-    // })
-    //   .then(res =>
-    //     // res.data
-    //     console.log('got res', res)
-    //   )
-    //   // .then(user =>
-    //   //   user
-    //   //     ? this.setState({
-    //   //       user: user
-    //   //     })
-    //   //     : console.log('no')
-    //   // )
-    //   .catch(console.error())
-
-    await fetch('/getUser', {headers: {'Accept': 'application/json'}})
-      .then(res => {
-        return res.json()
-      })
-      .then(user => {
-        this.setState({user: user})
-      })
-      .catch(err => {
-        console.error(err)
-      })
   }
 
   componentDidMount () {
-    this.getUser()
+    this.props.connectLoginWithTwitter()
   }
 
-  // FOR SOME REASON THE API CALL IS RUN TWICE
-
   render () {
-    // console.log(this.state)
     // if (this.state.user === {}) {
     // }
-    console.log(this.state)
+    console.log(this.props)
     return (
       <div>
-        { this.state.user.username ? <div> <p>{this.state.user.username}</p></div>
+        { this.props.user.username ? <div> <p>{this.props.user.username}</p></div>
           : <a href={'http://localhost:8080/login'}>
             <Button>
               <Icon name='twitter' size='big' />
