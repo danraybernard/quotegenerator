@@ -3,7 +3,7 @@ import './Header.css'
 import axios from 'axios'
 import { connect } from 'react-redux'
 import { loginWithTwitter } from '../../store'
-import { Button, Icon } from 'semantic-ui-react'
+import { Button, Dropdown, Icon } from 'semantic-ui-react'
 import fetch from 'cross-fetch'
 
 var XMLHttpRequest = require('xmlhttprequest').XMLHttpRequest
@@ -22,10 +22,17 @@ class Header extends Component {
   render () {
     // if (this.state.user === {}) {
     // }
-    console.log(this.props)
     return (
       <div>
-        { this.props.user.username ? <div> <p>{this.props.user.username}</p></div>
+        { this.props.user.username
+          ? <div> <Dropdown text={this.props.user.username} icon='ellipsis vertical' floating labeled button className='icon'>
+            <Dropdown.Menu>
+              <Dropdown.Item>
+                Logout
+              </Dropdown.Item>
+            </Dropdown.Menu>
+          </Dropdown>
+          </div>
           : <a href={'http://localhost:8080/login'}>
             <Button>
               <Icon name='twitter' size='big' />
