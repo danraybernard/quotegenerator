@@ -5,9 +5,14 @@ import axios from 'axios'
 import rootReducer from './reducers'
 import fetch from 'cross-fetch'
 export const TWITTER_LOGIN = 'TWITTER_LOGIN'
-
+export const TWITTER_LOGOUT = 'TWITTER_LOGOUT'
 export function twitterLogin (user) {
   const action = { type: TWITTER_LOGIN, user }
+  return action
+}
+
+export function twitterLogout () {
+  const action = { type: TWITTER_LOGOUT, user: {} }
   return action
 }
 
@@ -27,6 +32,17 @@ export function loginWithTwitter () {
       .catch(err => {
         console.error(err)
       })
+  }
+}
+
+export function logoutWithTwitter () {
+  return function thunk (dispatch) {
+    fetch('http://localhost:8080/logout', {credentials: 'include'})
+      .catch(err => {
+        console.log(err)
+      })
+    const action = twitterLogout()
+    dispatch(action)
   }
 }
 

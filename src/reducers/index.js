@@ -1,4 +1,4 @@
-import { TWITTER_LOGIN } from '../store'
+import { TWITTER_LOGIN, TWITTER_LOGOUT } from '../store'
 
 const initialState = {
   user: {}
@@ -10,7 +10,9 @@ const rootReducer = function (state = initialState, action) {
     case TWITTER_LOGIN:
       nextState.user = action.user
       return nextState
-
+    case TWITTER_LOGOUT:
+      nextState.user = action.user
+      return nextState
     default: return state
   }
 }

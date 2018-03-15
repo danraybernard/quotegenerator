@@ -2,11 +2,10 @@ import React, { Component } from 'react'
 import './Header.css'
 import axios from 'axios'
 import { connect } from 'react-redux'
-import { loginWithTwitter } from '../../store'
+import { loginWithTwitter, logoutWithTwitter } from '../../store'
 import { Button, Dropdown, Icon } from 'semantic-ui-react'
 import fetch from 'cross-fetch'
 
-var XMLHttpRequest = require('xmlhttprequest').XMLHttpRequest
 class Header extends Component {
   constructor (props) {
     super(props)
@@ -20,14 +19,12 @@ class Header extends Component {
   }
 
   render () {
-    // if (this.state.user === {}) {
-    // }
     return (
       <div>
         { this.props.user.username
           ? <div> <Dropdown text={this.props.user.username} icon='ellipsis vertical' floating labeled button className='icon'>
             <Dropdown.Menu>
-              <Dropdown.Item>
+              <Dropdown.Item onClick={this.props.connectLogoutWithTwitter}>
                 Logout
               </Dropdown.Item>
             </Dropdown.Menu>
@@ -54,6 +51,9 @@ const mapDispatchToProps = function (dispatch) {
   return {
     connectLoginWithTwitter (login) {
       dispatch(loginWithTwitter(login))
+    },
+    connectLogoutWithTwitter (login) {
+      dispatch(logoutWithTwitter(login))
     }
   }
 }
