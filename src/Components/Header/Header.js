@@ -5,6 +5,8 @@ import { connect } from 'react-redux'
 import { loginWithTwitter, logoutWithTwitter } from '../../store'
 import { Button, Dropdown, Icon } from 'semantic-ui-react'
 import fetch from 'cross-fetch'
+// import {Link} from 'react-router'
+import { Link } from 'react-router-dom'
 
 class Header extends Component {
   constructor (props) {
@@ -24,6 +26,11 @@ class Header extends Component {
         { this.props.user.username
           ? <div> <Dropdown text={this.props.user.username} icon='ellipsis vertical' floating labeled button className='icon'>
             <Dropdown.Menu>
+              <Dropdown.Item>
+
+                <Link to={'/user'}> My Saved Quotes </Link>
+
+              </Dropdown.Item>
               <Dropdown.Item onClick={this.props.connectLogoutWithTwitter}>
                 Logout
               </Dropdown.Item>

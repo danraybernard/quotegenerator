@@ -2,9 +2,15 @@
   text-align: center;
 }
 
+.home {
+  width: 5%;
+  /* display: flex; */
+  float: left;
+}
+
 .login {
   /* width: 25%; */
-  height: 25%;
+  /* height: 25%; */
   display: flex;
   justify-content: flex-end;
 }
