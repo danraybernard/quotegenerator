@@ -11,7 +11,9 @@ class App extends Component {
           <div className="login">
             <Header />
           </div>
-          <h1>Quotes on life, design and everything else</h1>
+          <div className="title">
+            <h1>Quotes on life, design and everything else</h1>
+          </div>
         </header>
         <Quote/>
       </div>
