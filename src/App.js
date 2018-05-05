@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import './App.css'
-import Quote from './Components/QuotePage/QuotePage.js'
-import Header from './Components/Header/Header.js'
+import Quote from './Components/QuotePage/QuotePage.jsx'
+import Header from './Components/Header/Header.jsx'
 import { Link, Route, Switch, withRouter } from 'react-router-dom'
 import { Icon } from 'semantic-ui-react'
 import { connect } from 'react-redux'
@@ -26,8 +26,8 @@ class App extends Component {
           </div>
         </header>
         <Switch>
-          <Route exact path='/' render={() => <Quote/>} />
-          <Route exact path='/user' render={() => <UserPage/>} />
+          <Route exact path="/" render={() => <Quote />} />
+          <Route exact path="/user" render={() => <UserPage />} />
         </Switch>
       </div>
     )
